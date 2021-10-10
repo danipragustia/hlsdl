@@ -1441,7 +1441,7 @@ int download_live_hls(write_ctx_t *out_ctx, hls_media_playlist_t *me)
 
             time_t curRepTime = time(NULL);
             if ((curRepTime - repTime) >= 1) {
-                MSG_API("{\"t_d\":%u,\"d_d\":%u,\"d_s\":%"PRId64"}\n", (uint32_t)(me->total_duration_ms / 1000), (uint32_t)(downloaded_duration_ms / 1000), download_size);
+                MSG_API("Total Duration: %u | Downloaded : %u | Size: %"PRId64"\n", (uint32_t)(me->total_duration_ms / 1000), (uint32_t)(downloaded_duration_ms / 1000), download_size);
                 repTime = curRepTime;
             }
 
@@ -1460,7 +1460,7 @@ int download_live_hls(write_ctx_t *out_ctx, hls_media_playlist_t *me)
     pthread_mutex_destroy(&cookie_file_mtx);
     hls_args.cookie_file_mutex = NULL;
 
-    MSG_API("{\"t_d\":%u,\"d_d\":%u,\"d_s\":%"PRId64"}\n", (uint32_t)(me->total_duration_ms / 1000), (uint32_t)(downloaded_duration_ms / 1000), download_size);
+    MSG_API("Total Duration: %u | Downloaded : %u | Size: %"PRId64"\n", (uint32_t)(me->total_duration_ms / 1000), (uint32_t)(downloaded_duration_ms / 1000), download_size);
     if (session)
     {
         clean_http_session(session);
@@ -1498,7 +1498,7 @@ static int vod_download_segment(void **psession, hls_media_playlist_t *me, struc
                 }
             }
             ret = 1;
-            MSG_API("{\"error_code\":%d, \"error_msg\":\"http\"}\n", (int)http_code);
+            MSG_API("Error [%d] - HTTP\n", (int)http_code);
             break;
         }
         break;
@@ -1561,8 +1561,8 @@ uint8_t * find_first_ts_packet(ByteBuffer_t *buf) {
 int download_hls(write_ctx_t *out_ctx, hls_media_playlist_t *me, hls_media_playlist_t *me_audio)
 {
     MSG_VERBOSE("Downloading segments.\n");
-    MSG_API("{\"d_t\":\"vod\"}\n"); // d_t - download type
-    MSG_API("{\"t_d\":%u,\"d_d\":0, \"d_s\":0}\n", (uint32_t)(me->total_duration_ms / 1000)); // t_d - total duration, d_d  - download duration, d_s - download size
+    MSG_API("Download Type : HLS\n"); // d_t - download type
+    MSG_API("Total Duration: %u\n", (uint32_t)(me->total_duration_ms / 1000)); // t_d - total duration, d_d  - download duration, d_s - download size
 
     int ret = 0;
     void *session = init_hls_session();
@@ -1626,14 +1626,14 @@ int download_hls(write_ctx_t *out_ctx, hls_media_playlist_t *me, hls_media_playl
 
         time_t curRepTime = time(NULL);
         if ((curRepTime - repTime) >= 1) {
-            MSG_API("{\"t_d\":%u,\"d_d\":%u,\"d_s\":%"PRId64"}\n", (uint32_t)(me->total_duration_ms / 1000), (uint32_t)(downloaded_duration_ms / 1000), download_size);
+            MSG_API("Total Duration: %u | Downloaded : %u | Size: %"PRId64"\n", (uint32_t)(me->total_duration_ms / 1000), (uint32_t)(downloaded_duration_ms / 1000), download_size);
             repTime = curRepTime;
         }
 
         ms = ms->next;
     }
 
-    MSG_API("{\"t_d\":%u,\"d_d\":%u,\"d_s\":%"PRId64"}\n", (uint32_t)(me->total_duration_ms / 1000), (uint32_t)(downloaded_duration_ms / 1000), download_size);
+    MSG_API("Total Duration: %u | Downloaded : %u | Size: %"PRId64"\n", (uint32_t)(me->total_duration_ms / 1000), (uint32_t)(downloaded_duration_ms / 1000), download_size);
 
     if (session) {
         clean_http_session(session);
