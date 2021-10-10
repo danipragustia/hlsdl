@@ -1,6 +1,8 @@
 hlsdl
 =====
 
+Forked from https://github.com/selsta/hlsdl
+
 This program converts .m3u8 playlists (using fragmented MPEG-2 Transport Streams) to a .ts video. It supports decryption of both AES-128 and SAMPLE-AES encryption.
 
 Requirements
@@ -11,13 +13,13 @@ This program requires libcurl and libcrypto libraries.
 Build
 -----
 
-![hlsdl build](https://github.com/selsta/hlsdl/workflows/hlsdl%20build/badge.svg)
+![hlsdl build](https://github.com/danipragustia/hlsdl/workflows/hlsdl%20build/badge.svg)
 
 Linux:
 `make && make install && make clean`
 
 Windows:
-https://github.com/selsta/hlsdl/blob/master/msvc/BUID_WINDOWS.txt
+https://github.com/danipragusita/hlsdl/blob/master/msvc/BUID_WINDOWS.txt
 
 
 Usage and Options
@@ -90,4 +92,4 @@ Ideas
 License
 -------
 
-[MIT License](https://github.com/selsta/hlsdl/blob/master/LICENSE)
+[MIT License](https://github.com/danipragustia/hlsdl/blob/master/LICENSE)
