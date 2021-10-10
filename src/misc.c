@@ -164,11 +164,9 @@ int parse_argv(int argc, char * const argv[])
 int str_to_bin(uint8_t *data, char *hexstring, int len)
 {
     char *pos = hexstring;
-
-    for (int count = 0; count < len; count++) {
-        char buf[3] = {pos[0], pos[1], 0};
-        data[count] = (uint8_t)strtol(buf, NULL, 16);
-        pos += 2;
+    uint8_t str_len = strlen(hexstring);
+    for (int i = 0; i < (str_len / 2); i++) {
+      sscanf(hexstring + 2 * i, "%02x", &data[i]);
     }
     return 0;
 }
